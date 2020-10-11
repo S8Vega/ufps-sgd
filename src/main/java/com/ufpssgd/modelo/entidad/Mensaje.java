@@ -4,15 +4,46 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name = "mensaje")
 public class Mensaje implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String descripcion;
+	@OneToMany(mappedBy = "mensaje", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties(value = "mensaje", allowSetters = true)
 	private List<Documento> documento;
+	@ManyToOne
+	@JoinColumn(name = "remitente")
+	@JsonIgnoreProperties(value = "mensaje", allowSetters = true)
 	private Usuario remitente;
+	@ManyToOne
+	@JoinColumn(name = "receptor")
+	@JsonIgnoreProperties(value = "mensaje", allowSetters = true)
 	private Usuario receptor;
 	private Date fechaEnvio;
+	@ManyToOne
+	@JoinColumn(name = "estado")
+	@JsonIgnoreProperties(value = "mensaje", allowSetters = true)
 	private Estado estado;
+	@OneToOne(mappedBy = "respuesta", cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "respuesta", unique = true)
+	@JsonIgnoreProperties(value = "respuesta", allowSetters = true)
 	private Mensaje respuesta;
 	private static final long serialVersionUID = 1L;
 

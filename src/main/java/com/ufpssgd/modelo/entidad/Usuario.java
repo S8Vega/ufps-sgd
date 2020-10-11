@@ -3,16 +3,39 @@ package com.ufpssgd.modelo.entidad;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
 	private String apellido;
 	private String alias;
 	private String contrasena;
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties(value = "usuario", allowSetters = true)
 	private Docente docente;
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties(value = "usuario", allowSetters = true)
 	private Administrativo administrativo;
+	@OneToMany(mappedBy = "remitente", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties(value = "remitente", allowSetters = true)
 	private List<Mensaje> mensajeEnviado;
+	@OneToMany(mappedBy = "remitente", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties(value = "remitente", allowSetters = true)
 	private List<Mensaje> mensajeRecibido;
 	private static final long serialVersionUID = 1L;
 

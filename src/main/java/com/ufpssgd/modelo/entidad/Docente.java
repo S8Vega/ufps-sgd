@@ -2,10 +2,31 @@ package com.ufpssgd.modelo.entidad;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name = "docente")
 public class Docente implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@ManyToOne
+	@JoinColumn(name = "departamento")
+	@JsonIgnoreProperties(value = "docente", allowSetters = true)
 	private Departamento departamento;
+	@OneToOne
+	@JoinColumn(name = "docente", unique = true)
+	@JsonIgnoreProperties(value = "docente", allowSetters = true)
 	private Usuario usuario;
 	private static final long serialVersionUID = 1L;
 

@@ -2,10 +2,30 @@ package com.ufpssgd.modelo.entidad;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name = "administrativo")
 public class Administrativo implements Serializable {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@OneToOne
+	@JoinColumn(name = "dependencia", unique = true)
+	@JsonIgnoreProperties(value = "responsable", allowSetters = true)
 	private Dependencia dependencia;
+	@OneToOne
+	@JoinColumn(name = "usuario", unique = true)
+	@JsonIgnoreProperties(value = "administrativo", allowSetters = true)
 	private Usuario usuario;
 	private static final long serialVersionUID = 1L;
 
