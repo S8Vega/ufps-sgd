@@ -32,7 +32,7 @@ public class Documento implements Serializable {
 	@JsonIgnoreProperties(value = "documento", allowSetters = true)
 	private Categoria categoria;
 	@ManyToMany
-	@JoinTable(name = "documento_etiqueta", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id"))
+	@JoinTable(name = "documento_etiqueta", joinColumns = @JoinColumn(name = "documento_id"), inverseJoinColumns = @JoinColumn(name = "etiqueta_id"))
 	@JsonIgnoreProperties(value = "documento", allowSetters = true)
 	private List<Etiqueta> etiqueta;
 	private static final long serialVersionUID = 1L;
