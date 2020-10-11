@@ -1,4 +1,4 @@
-package com.ufpssgd.modelo.entidad;
+package com.ufpssgd.api.modelo.entidad;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+//import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -41,10 +41,10 @@ public class Mensaje implements Serializable {
 	@JoinColumn(name = "estado")
 	@JsonIgnoreProperties(value = "mensaje", allowSetters = true)
 	private Estado estado;
-	@OneToOne(mappedBy = "respuesta", cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "respuesta", unique = true)
-	@JsonIgnoreProperties(value = "respuesta", allowSetters = true)
-	private Mensaje respuesta;
+	// @OneToOne(mappedBy = "respuesta", cascade = CascadeType.REMOVE)
+	// @JoinColumn(name = "respuesta", unique = true)
+	// @JsonIgnoreProperties(value = "respuesta", allowSetters = true)
+	// private Mensaje respuesta;
 	private static final long serialVersionUID = 1L;
 
 	public Mensaje() {
@@ -52,7 +52,7 @@ public class Mensaje implements Serializable {
 	}
 
 	public Mensaje(Long id, String descripcion, List<Documento> documento, Usuario remitente, Usuario receptor,
-			Date fechaEnvio, Estado estado, Mensaje respuesta) {
+			Date fechaEnvio, Estado estado/* , Mensaje respuesta */) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -61,14 +61,14 @@ public class Mensaje implements Serializable {
 		this.receptor = receptor;
 		this.fechaEnvio = fechaEnvio;
 		this.estado = estado;
-		this.respuesta = respuesta;
+		/* this.respuesta = respuesta; */
 	}
 
 	@Override
 	public String toString() {
 		return "Mensaje [id=" + id + ", descripcion=" + descripcion + ", documento=" + documento + ", remitente="
 				+ remitente + ", receptor=" + receptor + ", fechaEnvio=" + fechaEnvio + ", estado=" + estado
-				+ ", respuesta=" + respuesta + "]";
+				+ ", respuesta=" /* + respuesta */ + "]";
 	}
 
 	public Long getId() {
@@ -127,14 +127,11 @@ public class Mensaje implements Serializable {
 		this.estado = estado;
 	}
 
-	public Mensaje getRespuesta() {
-		return respuesta;
-	}
-
-	public void setRespuesta(Mensaje respuesta) {
-		this.respuesta = respuesta;
-	}
-
+	/*
+	 * public Mensaje getRespuesta() { return respuesta; }
+	 * 
+	 * public void setRespuesta(Mensaje respuesta) { this.respuesta = respuesta; }
+	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

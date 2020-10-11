@@ -1,4 +1,4 @@
-package com.ufpssgd.modelo.entidad;
+package com.ufpssgd.api.modelo.entidad;
 
 import java.io.Serializable;
 
