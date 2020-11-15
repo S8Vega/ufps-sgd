@@ -8,12 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "administrativo")
 public class Administrativo implements Serializable {
 
 	@Id
@@ -21,7 +19,7 @@ public class Administrativo implements Serializable {
 	private Long id;
 	@OneToOne
 	@JoinColumn(name = "dependencia", unique = true)
-	@JsonIgnoreProperties(value = "responsable", allowSetters = true)
+	@JsonIgnoreProperties(value = "administrativo", allowSetters = true)
 	private Dependencia dependencia;
 	@OneToOne
 	@JoinColumn(name = "usuario", unique = true)
@@ -30,11 +28,9 @@ public class Administrativo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public Administrativo() {
-		super();
 	}
 
 	public Administrativo(Long id, Dependencia dependencia, Usuario usuario) {
-		super();
 		this.id = id;
 		this.dependencia = dependencia;
 		this.usuario = usuario;

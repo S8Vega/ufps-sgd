@@ -9,12 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "docente")
 public class Docente implements Serializable {
 
 	@Id
@@ -25,17 +23,15 @@ public class Docente implements Serializable {
 	@JsonIgnoreProperties(value = "docente", allowSetters = true)
 	private Departamento departamento;
 	@OneToOne
-	@JoinColumn(name = "docente", unique = true)
+	@JoinColumn(name = "usuario", unique = true)
 	@JsonIgnoreProperties(value = "docente", allowSetters = true)
 	private Usuario usuario;
 	private static final long serialVersionUID = 1L;
 
 	public Docente() {
-		super();
 	}
 
 	public Docente(Long id, Departamento departamento, Usuario usuario) {
-		super();
 		this.id = id;
 		this.departamento = departamento;
 		this.usuario = usuario;

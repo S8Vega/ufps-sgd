@@ -6,10 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "administrador")
 public class Administrador implements Serializable {
 
 	@Id
@@ -20,11 +18,9 @@ public class Administrador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public Administrador() {
-		super();
 	}
 
 	public Administrador(Long id, String alias, String contrasena) {
-		super();
 		this.id = id;
 		this.alias = alias;
 		this.contrasena = contrasena;

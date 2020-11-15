@@ -1,7 +1,7 @@
 package com.ufpssgd.api.modelo.entidad;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,49 +11,45 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "documento")
 public class Documento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Long numeroRadicado;
+	private String nombre;
+	private String archivo;
 	@ManyToOne
 	@JoinColumn(name = "mensaje")
 	@JsonIgnoreProperties(value = "documento", allowSetters = true)
 	private Mensaje mensaje;
-	@ManyToOne
-	@JoinColumn(name = "categoria")
-	@JsonIgnoreProperties(value = "documento", allowSetters = true)
-	private Categoria categoria;
 	@ManyToMany
 	@JoinTable(name = "documento_etiqueta", joinColumns = @JoinColumn(name = "documento_id"), inverseJoinColumns = @JoinColumn(name = "etiqueta_id"))
 	@JsonIgnoreProperties(value = "documento", allowSetters = true)
-	private List<Etiqueta> etiqueta;
+	private Set<Etiqueta> etiqueta;
 	private static final long serialVersionUID = 1L;
 
 	public Documento() {
-		super();
 	}
 
-	public Documento(Long id, Long numeroRadicado, Mensaje mensaje, Categoria categoria, List<Etiqueta> etiqueta) {
-		super();
+	public Documento(Long id, Long numeroRadicado, String nombre, String archivo, Mensaje mensaje,
+			Set<Etiqueta> etiqueta) {
 		this.id = id;
 		this.numeroRadicado = numeroRadicado;
+		this.nombre = nombre;
+		this.archivo = archivo;
 		this.mensaje = mensaje;
-		this.categoria = categoria;
 		this.etiqueta = etiqueta;
 	}
 
 	@Override
 	public String toString() {
-		return "Documento [id=" + id + ", numeroRadicado=" + numeroRadicado + ", mensaje=" + mensaje + ", categoria="
-				+ categoria + ", etiqueta=" + etiqueta + "]";
+		return "Documento [id=" + id + ", numeroRadicado=" + numeroRadicado + ", nombre=" + nombre + ", archivo="
+				+ archivo + ", mensaje=" + mensaje + ", etiqueta=" + etiqueta + "]";
 	}
 
 	public Long getId() {
@@ -72,6 +68,22 @@ public class Documento implements Serializable {
 		this.numeroRadicado = numeroRadicado;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getArchivo() {
+		return archivo;
+	}
+
+	public void setArchivo(String archivo) {
+		this.archivo = archivo;
+	}
+
 	public Mensaje getMensaje() {
 		return mensaje;
 	}
@@ -80,19 +92,11 @@ public class Documento implements Serializable {
 		this.mensaje = mensaje;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-	public List<Etiqueta> getEtiqueta() {
+	public Set<Etiqueta> getEtiqueta() {
 		return etiqueta;
 	}
 
-	public void setEtiqueta(List<Etiqueta> etiqueta) {
+	public void setEtiqueta(Set<Etiqueta> etiqueta) {
 		this.etiqueta = etiqueta;
 	}
 

@@ -8,12 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "dependencia")
 public class Dependencia implements Serializable {
 
 	@Id
@@ -22,26 +20,24 @@ public class Dependencia implements Serializable {
 	private String nombre;
 	@OneToOne(mappedBy = "dependencia", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties(value = "dependencia", allowSetters = true)
-	private Administrativo responsable;
+	private Administrativo administrativo;
 	private Long numero;
 	private static final long serialVersionUID = 1L;
 
 	public Dependencia() {
-		super();
 	}
 
-	public Dependencia(Long id, String nombre, Administrativo responsable, Long numero) {
-		super();
+	public Dependencia(Long id, String nombre, Administrativo administrativo, Long numero) {
 		this.id = id;
 		this.nombre = nombre;
-		this.responsable = responsable;
+		this.administrativo = administrativo;
 		this.numero = numero;
 	}
 
 	@Override
 	public String toString() {
-		return "Dependencia [id=" + id + ", nombre=" + nombre + ", responsable=" + responsable + ", numero=" + numero
-				+ "]";
+		return "Dependencia [id=" + id + ", nombre=" + nombre + ", administrativo=" + administrativo + ", numero="
+				+ numero + "]";
 	}
 
 	public Long getId() {
@@ -60,12 +56,12 @@ public class Dependencia implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Administrativo getResponsable() {
-		return responsable;
+	public Administrativo getAdministrativo() {
+		return administrativo;
 	}
 
-	public void setResponsable(Administrativo responsable) {
-		this.responsable = responsable;
+	public void setAdministrativo(Administrativo administrativo) {
+		this.administrativo = administrativo;
 	}
 
 	public Long getNumero() {

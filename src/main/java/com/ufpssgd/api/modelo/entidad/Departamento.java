@@ -1,7 +1,7 @@
 package com.ufpssgd.api.modelo.entidad;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,12 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "departamento")
 public class Departamento implements Serializable {
 
 	@Id
@@ -23,15 +21,13 @@ public class Departamento implements Serializable {
 	private String nombre;
 	@OneToMany(mappedBy = "departamento", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties(value = "departamento", allowSetters = true)
-	private List<Docente> docente;
+	private Set<Docente> docente;
 	private static final long serialVersionUID = 1L;
 
 	public Departamento() {
-		super();
 	}
 
-	public Departamento(Long id, String nombre, List<Docente> docente) {
-		super();
+	public Departamento(Long id, String nombre, Set<Docente> docente) {
 		this.id = id;
 		this.nombre = nombre;
 		this.docente = docente;
@@ -58,11 +54,11 @@ public class Departamento implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public List<Docente> getDocente() {
+	public Set<Docente> getDocente() {
 		return docente;
 	}
 
-	public void setDocente(List<Docente> docente) {
+	public void setDocente(Set<Docente> docente) {
 		this.docente = docente;
 	}
 

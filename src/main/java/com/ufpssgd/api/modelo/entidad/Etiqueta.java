@@ -1,19 +1,17 @@
 package com.ufpssgd.api.modelo.entidad;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "etiqueta")
 public class Etiqueta implements Serializable {
 
 	@Id
@@ -22,15 +20,13 @@ public class Etiqueta implements Serializable {
 	private String descripcion;
 	@ManyToMany(mappedBy = "etiqueta")
 	@JsonIgnoreProperties(value = "etiqueta", allowSetters = true)
-	private List<Documento> documento;
+	private Set<Documento> documento;
 	private static final long serialVersionUID = 1L;
 
 	public Etiqueta() {
-		super();
 	}
 
-	public Etiqueta(Long id, String descripcion, List<Documento> documento) {
-		super();
+	public Etiqueta(Long id, String descripcion, Set<Documento> documento) {
 		this.id = id;
 		this.descripcion = descripcion;
 		this.documento = documento;
@@ -57,11 +53,11 @@ public class Etiqueta implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public List<Documento> getDocumento() {
+	public Set<Documento> getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(List<Documento> documento) {
+	public void setDocumento(Set<Documento> documento) {
 		this.documento = documento;
 	}
 

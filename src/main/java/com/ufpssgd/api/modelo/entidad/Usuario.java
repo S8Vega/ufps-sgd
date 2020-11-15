@@ -1,7 +1,7 @@
 package com.ufpssgd.api.modelo.entidad;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,12 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "usuario")
 public class Usuario implements Serializable {
 
 	@Id
@@ -31,21 +29,19 @@ public class Usuario implements Serializable {
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties(value = "usuario", allowSetters = true)
 	private Administrativo administrativo;
+	@OneToMany(mappedBy = "receptor", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties(value = "receptor", allowSetters = true)
+	private Set<Mensaje> mensajeEnviado;
 	@OneToMany(mappedBy = "remitente", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties(value = "remitente", allowSetters = true)
-	private List<Mensaje> mensajeEnviado;
-	@OneToMany(mappedBy = "remitente", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties(value = "remitente", allowSetters = true)
-	private List<Mensaje> mensajeRecibido;
+	private Set<Mensaje> mensajeRecibido;
 	private static final long serialVersionUID = 1L;
 
 	public Usuario() {
-		super();
 	}
 
 	public Usuario(Long id, String nombre, String apellido, String alias, String contrasena, Docente docente,
-			Administrativo administrativo, List<Mensaje> mensajeEnviado, List<Mensaje> mensajeRecibido) {
-		super();
+			Administrativo administrativo, Set<Mensaje> mensajeEnviado, Set<Mensaje> mensajeRecibido) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -120,19 +116,19 @@ public class Usuario implements Serializable {
 		this.administrativo = administrativo;
 	}
 
-	public List<Mensaje> getMensajeEnviado() {
+	public Set<Mensaje> getMensajeEnviado() {
 		return mensajeEnviado;
 	}
 
-	public void setMensajeEnviado(List<Mensaje> mensajeEnviado) {
+	public void setMensajeEnviado(Set<Mensaje> mensajeEnviado) {
 		this.mensajeEnviado = mensajeEnviado;
 	}
 
-	public List<Mensaje> getMensajeRecibido() {
+	public Set<Mensaje> getMensajeRecibido() {
 		return mensajeRecibido;
 	}
 
-	public void setMensajeRecibido(List<Mensaje> mensajeRecibido) {
+	public void setMensajeRecibido(Set<Mensaje> mensajeRecibido) {
 		this.mensajeRecibido = mensajeRecibido;
 	}
 

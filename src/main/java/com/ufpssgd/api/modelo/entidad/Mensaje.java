@@ -2,7 +2,7 @@ package com.ufpssgd.api.modelo.entidad;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,22 +12,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-//import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "mensaje")
 public class Mensaje implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String asunto;
 	private String descripcion;
 	@OneToMany(mappedBy = "mensaje", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties(value = "mensaje", allowSetters = true)
-	private List<Documento> documento;
+	private Set<Documento> documento;
 	@ManyToOne
 	@JoinColumn(name = "remitente")
 	@JsonIgnoreProperties(value = "mensaje", allowSetters = true)
@@ -37,38 +36,39 @@ public class Mensaje implements Serializable {
 	@JsonIgnoreProperties(value = "mensaje", allowSetters = true)
 	private Usuario receptor;
 	private Date fechaEnvio;
-	@ManyToOne
-	@JoinColumn(name = "estado")
-	@JsonIgnoreProperties(value = "mensaje", allowSetters = true)
-	private Estado estado;
-	// @OneToOne(mappedBy = "respuesta", cascade = CascadeType.REMOVE)
-	// @JoinColumn(name = "respuesta", unique = true)
-	// @JsonIgnoreProperties(value = "respuesta", allowSetters = true)
-	// private Mensaje respuesta;
+	private String estado;
+	@OneToOne(mappedBy = "mensajeSiguiente", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties(value = "mensajeSiguiente", allowSetters = true)
+	private Respuesta respuestaAnterior;
+	@OneToOne(mappedBy = "mensajeAnterior", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties(value = "mensajeAnterior", allowSetters = true)
+	private Respuesta respuestaSiguiente;
 	private static final long serialVersionUID = 1L;
 
 	public Mensaje() {
-		super();
 	}
 
-	public Mensaje(Long id, String descripcion, List<Documento> documento, Usuario remitente, Usuario receptor,
-			Date fechaEnvio, Estado estado/* , Mensaje respuesta */) {
-		super();
+	public Mensaje(Long id, String asunto, String descripcion, Set<Documento> documento, Usuario remitente,
+			Usuario receptor, Date fechaEnvio, String estado, Respuesta respuestaAnterior,
+			Respuesta respuestaSiguiente) {
 		this.id = id;
+		this.asunto = asunto;
 		this.descripcion = descripcion;
 		this.documento = documento;
 		this.remitente = remitente;
 		this.receptor = receptor;
 		this.fechaEnvio = fechaEnvio;
 		this.estado = estado;
-		/* this.respuesta = respuesta; */
+		this.respuestaAnterior = respuestaAnterior;
+		this.respuestaSiguiente = respuestaSiguiente;
 	}
 
 	@Override
 	public String toString() {
-		return "Mensaje [id=" + id + ", descripcion=" + descripcion + ", documento=" + documento + ", remitente="
-				+ remitente + ", receptor=" + receptor + ", fechaEnvio=" + fechaEnvio + ", estado=" + estado
-				+ ", respuesta=" /* + respuesta */ + "]";
+		return "Mensaje [id=" + id + ", asunto=" + asunto + ", descripcion=" + descripcion + ", documento=" + documento
+				+ ", remitente=" + remitente + ", receptor=" + receptor + ", fechaEnvio=" + fechaEnvio + ", estado="
+				+ estado + ", respuestaAnterior=" + respuestaAnterior + ", respuestaSiguiente=" + respuestaSiguiente
+				+ "]";
 	}
 
 	public Long getId() {
@@ -79,6 +79,14 @@ public class Mensaje implements Serializable {
 		this.id = id;
 	}
 
+	public String getAsunto() {
+		return asunto;
+	}
+
+	public void setAsunto(String asunto) {
+		this.asunto = asunto;
+	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -87,11 +95,11 @@ public class Mensaje implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public List<Documento> getDocumento() {
+	public Set<Documento> getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(List<Documento> documento) {
+	public void setDocumento(Set<Documento> documento) {
 		this.documento = documento;
 	}
 
@@ -119,19 +127,30 @@ public class Mensaje implements Serializable {
 		this.fechaEnvio = fechaEnvio;
 	}
 
-	public Estado getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Estado estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
-	/*
-	 * public Mensaje getRespuesta() { return respuesta; }
-	 * 
-	 * public void setRespuesta(Mensaje respuesta) { this.respuesta = respuesta; }
-	 */
+	public Respuesta getRespuestaAnterior() {
+		return respuestaAnterior;
+	}
+
+	public void setRespuestaAnterior(Respuesta respuestaAnterior) {
+		this.respuestaAnterior = respuestaAnterior;
+	}
+
+	public Respuesta getRespuestaSiguiente() {
+		return respuestaSiguiente;
+	}
+
+	public void setRespuestaSiguiente(Respuesta respuestaSiguiente) {
+		this.respuestaSiguiente = respuestaSiguiente;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
