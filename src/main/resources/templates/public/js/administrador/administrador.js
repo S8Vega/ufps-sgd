@@ -41,3 +41,33 @@ function loadInfo() {
     xhttp.open("GET", "../../vista/administrador/notificaciones.html", true);
     xhttp.send();
   }
+  function loadAggDocuments() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("contenedor").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "../../vista/administrador/subirDocumento.html", true);
+    xhttp.send();
+  }
+  function loadPanelBuzon() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("contenedor").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "../../vista/administrador/panelBuzon.html", true);
+    xhttp.send();
+  }
+  function loadRUser() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("contenedor").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "../../vista/administrador/rUsuario.html", true);
+    xhttp.send();
+  }

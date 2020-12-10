@@ -1,0 +1,80 @@
+<div class="container" id="contenedor">
+
+    <div class="card">
+        <div class="card-header bg-transparent">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h6 class="text-uppercase text-muted ls-1 mb-1">Manejo Usuarios</h6>
+                    <h5 class="h3 mb-0">Agregar Usuario</h5>
+                </div>
+            </div>
+        </div>
+            <div class="card-body">
+                <div class="box box-primary" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
+                        <br>
+                        <form class="formularioConvenio"  enctype="multipart/form-data">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="">Documento</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Nombre</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="">Correo</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Telefono</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="">Celular</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Direccion</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="fecha">Fecha Nacimiento</label>
+                                    <input class="form-control btn btn-secondary dropdown-toggle"  type="date" required >
+                                </div>
+                                <div class="dropdown">
+                                    <label for="exampleFormControlSelect1">Tipo Usuario</label>
+                                    <select class="form-control btn btn-secondary dropdown-toggle" id="exampleFormControlSelect1">
+                                        <option>Docente</option>
+                                        <option>Administrativo</option>
+                                      </select>
+                                  </div>
+                            </div>
+               
+                          </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="contraEmpresa">Contraseña</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Agregar</button>
+                        </form>
+
+                        <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px " id="alertCorreo" class="alert alert-danger" role="alert">
+                            <p class="respuesta" id="respuestaCorreo"></p>
+                        </div>
+                        <div style="width:80%; margin:auto;display:none;  text-align:center; padding:10px ; " id="alertCorreo2" class="alert alert-success" role="alert">
+                            <p class="respuesta" id="respuestaCorreo2"></p>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
