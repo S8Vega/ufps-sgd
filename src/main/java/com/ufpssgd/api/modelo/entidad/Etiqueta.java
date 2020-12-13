@@ -37,6 +37,12 @@ public class Etiqueta implements Serializable {
 		return "Etiqueta [id=" + id + ", descripcion=" + descripcion + ", documento=" + documento + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Etiqueta other = (Etiqueta) obj;
+		return descripcion.equals(other.getDescripcion());
+	}
+
 	public Long getId() {
 		return id;
 	}
