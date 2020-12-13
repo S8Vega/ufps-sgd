@@ -30,27 +30,19 @@ class MensajeTest {
 			// test: save
 			servicio.save(expected);
 			actual = servicio.findById(expected.getId());
-			assertEquals(expected.getAsunto(), actual.getAsunto());
-			assertEquals(expected.getDescripcion(), actual.getDescripcion());
+			assertEquals(expected, actual);
 			expected.setAsunto("asunto: " + (i + 1));
 			expected.setDescripcion("descripcion: " + (i + 1));
 			// test: save
 			servicio.save(expected);
 			actual = servicio.findById(actual.getId());
-			assertEquals(expected.getAsunto(), actual.getAsunto());
-			assertEquals(expected.getDescripcion(), actual.getDescripcion());
+			assertEquals(expected, actual);
 			// test: deleteById
 			servicio.deleteById(expected.getId());
 			actual = servicio.findById(actual.getId());
 			assertNull(actual);
 		}
 		ArrayList<Mensaje> listaActual = (ArrayList<Mensaje>) servicio.findAll();
-		assertEquals(listaExpected.size(), listaActual.size());
-		for (int i = 0; i < listaExpected.size(); i++) {
-			expected = listaExpected.get(i);
-			actual = listaActual.get(i);
-			assertEquals(expected.getAsunto(), actual.getAsunto());
-			assertEquals(expected.getDescripcion(), actual.getDescripcion());
-		}
+		assertEquals(listaExpected, listaActual);
 	}
 }

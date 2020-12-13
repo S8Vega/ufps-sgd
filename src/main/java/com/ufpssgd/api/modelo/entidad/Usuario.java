@@ -60,6 +60,13 @@ public class Usuario implements Serializable {
 				+ ", mensajeEnviado=" + mensajeEnviado + ", mensajeRecibido=" + mensajeRecibido + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Usuario other = (Usuario) obj;
+		return nombre.equals(other.getNombre()) && apellido.equals(other.getApellido())
+				&& alias.equals(other.getAlias()) && contrasena.equals(other.getContrasena());
+	}
+
 	public Long getId() {
 		return id;
 	}

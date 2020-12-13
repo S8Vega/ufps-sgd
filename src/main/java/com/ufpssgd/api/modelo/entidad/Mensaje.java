@@ -71,6 +71,13 @@ public class Mensaje implements Serializable {
 				+ "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Mensaje other = (Mensaje) obj;
+		return asunto.equals(other.getAsunto()) && descripcion.equals(other.getDescripcion())
+				&& estado.equals(other.getEstado());
+	}
+
 	public Long getId() {
 		return id;
 	}
