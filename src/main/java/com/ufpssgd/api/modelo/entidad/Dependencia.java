@@ -42,8 +42,8 @@ public class Dependencia implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		Dependencia other = (Depentencia) obj;
-		return false;
+		Dependencia other = (Dependencia) obj;
+		return nombre.equals(other.getNombre()) && numero.equals(other.getNumero());
 	}
 
 	public Long getId() {
