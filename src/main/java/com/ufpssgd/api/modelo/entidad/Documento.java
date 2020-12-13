@@ -52,6 +52,13 @@ public class Documento implements Serializable {
 				+ archivo + ", mensaje=" + mensaje + ", etiqueta=" + etiqueta + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Documento other = (Documento) obj;
+		return numeroRadicado.equals(other.getNumeroRadicado()) && nombre.equals(other.getNombre())
+				&& archivo.equals(other.getArchivo());
+	}
+
 	public Long getId() {
 		return id;
 	}

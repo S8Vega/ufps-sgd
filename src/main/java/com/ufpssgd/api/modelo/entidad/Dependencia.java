@@ -40,6 +40,12 @@ public class Dependencia implements Serializable {
 				+ numero + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Dependencia other = (Depentencia) obj;
+		return false;
+	}
+
 	public Long getId() {
 		return id;
 	}
