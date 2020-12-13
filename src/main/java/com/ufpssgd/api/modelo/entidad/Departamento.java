@@ -38,6 +38,12 @@ public class Departamento implements Serializable {
 		return "Departamento [id=" + id + ", nombre=" + nombre + ", docente=" + docente + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Departamento other = (Departamento) obj;
+		return nombre.equals(other.getNombre());
+	}
+
 	public Long getId() {
 		return id;
 	}

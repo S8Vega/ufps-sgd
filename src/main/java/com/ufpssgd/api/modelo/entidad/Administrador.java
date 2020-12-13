@@ -31,6 +31,12 @@ public class Administrador implements Serializable {
 		return "Administrador [id=" + id + ", alias=" + alias + ", contrasena=" + contrasena + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Administrador other = (Administrador) obj;
+		return alias.equals(other.getAlias()) && contrasena.equals(other.getContrasena());
+	}
+
 	public Long getId() {
 		return id;
 	}
