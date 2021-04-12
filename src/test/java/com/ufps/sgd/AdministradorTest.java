@@ -18,7 +18,7 @@ class AdministradorTest {
     private AdministradorService servicio;
 
     @Test
-    void test() {
+    void crud() {
         Administrador expected, actual;
         ArrayList<Administrador> listaExpected = (ArrayList<Administrador>) servicio.findAll();
         for (int i = 0; i < 10; i++) {

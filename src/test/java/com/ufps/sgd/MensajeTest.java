@@ -21,7 +21,7 @@ class MensajeTest {
     private UsuarioService usuarioServicio;
 
     @Test
-    void test() {
+    void crud() {
         Mensaje expected, actual;
         ArrayList<Mensaje> listaExpected = (ArrayList<Mensaje>) servicio.findAll();
         for (int i = 0; i < 10; i++) {

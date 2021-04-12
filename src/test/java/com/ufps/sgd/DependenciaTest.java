@@ -18,7 +18,7 @@ class DependenciaTest {
     private DependenciaService servicio;
 
     @Test
-    void test() {
+    void crud() {
         Dependencia expected, actual;
         ArrayList<Dependencia> listaExpected = (ArrayList<Dependencia>) servicio.findAll();
         for (int i = 0; i < 10; i++) {

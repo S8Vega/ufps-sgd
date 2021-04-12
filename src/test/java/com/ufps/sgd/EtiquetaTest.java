@@ -18,7 +18,7 @@ class EtiquetaTest {
     private EtiquetaService servicio;
 
     @Test
-    void test() {
+    void crud() {
         Etiqueta expected, actual;
         ArrayList<Etiqueta> listaExpected = (ArrayList<Etiqueta>) servicio.findAll();
         for (int i = 0; i < 10; i++) {

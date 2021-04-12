@@ -18,7 +18,7 @@ class DepartamentoTest {
     private DepartamentoService servicio;
 
     @Test
-    void test() {
+    void crud() {
         Departamento expected, actual;
         ArrayList<Departamento> listaExpected = (ArrayList<Departamento>) servicio.findAll();
         for (int i = 0; i < 10; i++) {

@@ -18,7 +18,7 @@ class DocumentoTest {
     private DocumentoService servicio;
 
     @Test
-    void test() {
+    void crud() {
         Documento expected, actual;
         ArrayList<Documento> listaExpected = (ArrayList<Documento>) servicio.findAll();
         for (int i = 0; i < 10; i++) {
