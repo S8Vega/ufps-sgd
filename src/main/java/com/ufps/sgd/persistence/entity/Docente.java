@@ -1,10 +1,18 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Docente implements Serializable {
 
@@ -14,53 +22,15 @@ public class Docente implements Serializable {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "departamento")
-    @JsonIgnoreProperties(value = "docente", allowSetters = true)
+    @JsonIgnoreProperties(value = {"nombre", "docente"}, allowSetters = true)
     private Departamento departamento;
     @OneToOne
     @JoinColumn(name = "usuario", unique = true)
-    @JsonIgnoreProperties(value = "docente", allowSetters = true)
+    @JsonIgnoreProperties(value = {"nombre", "apellido", "alias", "contrasena", "docente", "administrativo", "mensajeEnviado", "mensajeRecibido"}, allowSetters = true)
     private Usuario usuario;
-
-    public Docente() {
-    }
-
-    public Docente(Long id, Departamento departamento, Usuario usuario) {
-        this.id = id;
-        this.departamento = departamento;
-        this.usuario = usuario;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
 
     @Override
     public String toString() {
         return "Docente [id=" + id + ", departamento=" + departamento + ", usuario=" + usuario + "]";
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Departamento getDepartamento() {
-        return departamento;
-    }
-
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
 }

@@ -1,11 +1,19 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Departamento implements Serializable {
 
@@ -15,21 +23,8 @@ public class Departamento implements Serializable {
     private Long id;
     private String nombre;
     @OneToMany(mappedBy = "departamento", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties(value = "departamento", allowSetters = true)
+    @JsonIgnoreProperties(value = {"departamento", "usuario"}, allowSetters = true)
     private Set<Docente> docente;
-
-    public Departamento() {
-    }
-
-    public Departamento(Long id, String nombre, Set<Docente> docente) {
-        this.id = id;
-        this.nombre = nombre;
-        this.docente = docente;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
 
     @Override
     public String toString() {
@@ -41,29 +36,4 @@ public class Departamento implements Serializable {
         Departamento other = (Departamento) obj;
         return nombre.equals(other.getNombre());
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Set<Docente> getDocente() {
-        return docente;
-    }
-
-    public void setDocente(Set<Docente> docente) {
-        this.docente = docente;
-    }
-
 }

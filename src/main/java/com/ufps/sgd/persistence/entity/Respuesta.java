@@ -1,10 +1,18 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Respuesta implements Serializable {
 
@@ -14,54 +22,16 @@ public class Respuesta implements Serializable {
     private Long id;
     @OneToOne
     @JoinColumn(name = "mensajeAnterior", unique = true)
-    @JsonIgnoreProperties(value = "respuestaAnterior", allowSetters = true)
+    @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
     private Mensaje mensajeAnterior;
     @OneToOne
     @JoinColumn(name = "mensajeSiguiente", unique = true)
-    @JsonIgnoreProperties(value = "respuestaSiguiente", allowSetters = true)
+    @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
     private Mensaje mensajeSiguiente;
-
-    public Respuesta() {
-    }
-
-    public Respuesta(Long id, Mensaje mensajeAnterior, Mensaje mensajeSiguiente) {
-        this.id = id;
-        this.mensajeAnterior = mensajeAnterior;
-        this.mensajeSiguiente = mensajeSiguiente;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
 
     @Override
     public String toString() {
         return "Respuesta [id=" + id + ", mensajeAnterior=" + mensajeAnterior + ", mensajeSiguiente=" + mensajeSiguiente
                 + "]";
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Mensaje getMensajeAnterior() {
-        return mensajeAnterior;
-    }
-
-    public void setMensajeAnterior(Mensaje mensajeAnterior) {
-        this.mensajeAnterior = mensajeAnterior;
-    }
-
-    public Mensaje getMensajeSiguiente() {
-        return mensajeSiguiente;
-    }
-
-    public void setMensajeSiguiente(Mensaje mensajeSiguiente) {
-        this.mensajeSiguiente = mensajeSiguiente;
-    }
-
 }

@@ -1,11 +1,19 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Documento implements Serializable {
 
@@ -18,29 +26,12 @@ public class Documento implements Serializable {
     private String archivo;
     @ManyToOne
     @JoinColumn(name = "mensaje")
-    @JsonIgnoreProperties(value = "documento", allowSetters = true)
+    @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
     private Mensaje mensaje;
     @ManyToMany
     @JoinTable(name = "documento_etiqueta", joinColumns = @JoinColumn(name = "documento_id"), inverseJoinColumns = @JoinColumn(name = "etiqueta_id"))
-    @JsonIgnoreProperties(value = "documento", allowSetters = true)
+    @JsonIgnoreProperties(value = {"descripcion", "documento"}, allowSetters = true)
     private Set<Etiqueta> etiqueta;
-
-    public Documento() {
-    }
-
-    public Documento(Long id, Long numeroRadicado, String nombre, String archivo, Mensaje mensaje,
-                     Set<Etiqueta> etiqueta) {
-        this.id = id;
-        this.numeroRadicado = numeroRadicado;
-        this.nombre = nombre;
-        this.archivo = archivo;
-        this.mensaje = mensaje;
-        this.etiqueta = etiqueta;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
 
     @Override
     public String toString() {
@@ -54,53 +45,4 @@ public class Documento implements Serializable {
         return numeroRadicado.equals(other.getNumeroRadicado()) && nombre.equals(other.getNombre())
                 && archivo.equals(other.getArchivo());
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getNumeroRadicado() {
-        return numeroRadicado;
-    }
-
-    public void setNumeroRadicado(Long numeroRadicado) {
-        this.numeroRadicado = numeroRadicado;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getArchivo() {
-        return archivo;
-    }
-
-    public void setArchivo(String archivo) {
-        this.archivo = archivo;
-    }
-
-    public Mensaje getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(Mensaje mensaje) {
-        this.mensaje = mensaje;
-    }
-
-    public Set<Etiqueta> getEtiqueta() {
-        return etiqueta;
-    }
-
-    public void setEtiqueta(Set<Etiqueta> etiqueta) {
-        this.etiqueta = etiqueta;
-    }
-
 }
