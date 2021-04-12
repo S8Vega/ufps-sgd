@@ -1,6 +1,8 @@
 package com.ufps.sgd;
 
+import com.ufps.sgd.domain.service.MensajeService;
 import com.ufps.sgd.domain.service.UsuarioService;
+import com.ufps.sgd.persistence.entity.Mensaje;
 import com.ufps.sgd.persistence.entity.Usuario;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ class UsuarioTest {
 
     @Autowired
     private UsuarioService servicio;
+    @Autowired
+    private MensajeService mensajeService;
 
     @Test
     void crud() {
@@ -43,5 +47,50 @@ class UsuarioTest {
         }
         ArrayList<Usuario> listaActual = (ArrayList<Usuario>) servicio.findAll();
         assertEquals(listaExpected, listaActual);
+    }
+
+    @Test
+    void remitenteReceptor() {
+        Usuario remitente, receptor;
+        Mensaje mensajeExpected, mensajeActual;
+        ArrayList<Mensaje> mensajes;
+        ArrayList<Usuario> listaUsuarioExpected = (ArrayList<Usuario>) servicio.findAll();
+        ArrayList<Mensaje> listaMensajeExpected = (ArrayList<Mensaje>) mensajeService.findAll();
+        for (int i = 0; i < 1; i++) {
+            remitente = new Usuario();
+            remitente.setNombre("remitente nombre: " + (i + 1));
+            remitente.setApellido("remitente apellido: " + (i + 1));
+            remitente.setAlias("remitente alias: " + (i + 1));
+            remitente.setContrasena("remitente contrasena: " + (i + 1));
+            receptor = new Usuario();
+            receptor.setNombre("receptor nombre: " + (i + 1));
+            receptor.setApellido("receptor apellido: " + (i + 1));
+            receptor.setAlias("receptor alias: " + (i + 1));
+            receptor.setContrasena("receptor contrasena: " + (i + 1));
+            servicio.save(remitente);
+            servicio.save(receptor);
+            mensajeExpected = new Mensaje();
+            mensajeExpected.setRemitente(remitente);
+            mensajeExpected.setReceptor(receptor);
+            mensajeExpected.setAsunto("asunto: " + (i + 1));
+            mensajeExpected.setDescripcion("descripcion: " + (i + 1));
+            mensajeExpected.setEstado("estado: " + (i + 1));
+            mensajeService.save(mensajeExpected);
+            mensajes = (ArrayList<Mensaje>) servicio.findByReceptor(receptor.getId());
+            mensajeActual = mensajes.get(0);
+            assertEquals(mensajeExpected, mensajeActual);
+            mensajes = (ArrayList<Mensaje>) servicio.findByRemitente(remitente.getId());
+            mensajeActual = mensajes.get(0);
+            assertEquals(mensajeExpected, mensajeActual);
+            mensajeService.deleteById(mensajeExpected.getId());
+            servicio.deleteById(remitente.getId());
+            servicio.deleteById(receptor.getId());
+        }
+        ArrayList<Usuario> listaUsuarioActual = (ArrayList<Usuario>) servicio.findAll();
+        ArrayList<Mensaje> listaMensajeActual = (ArrayList<Mensaje>) mensajeService.findAll();
+        System.out.println(listaMensajeExpected.size());
+        System.out.println(listaMensajeActual.size());
+        assertEquals(listaMensajeExpected, listaMensajeActual);
+        assertEquals(listaUsuarioExpected, listaUsuarioActual);
     }
 }

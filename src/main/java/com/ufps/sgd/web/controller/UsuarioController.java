@@ -1,6 +1,7 @@
 package com.ufps.sgd.web.controller;
 
 import com.ufps.sgd.domain.service.UsuarioService;
+import com.ufps.sgd.persistence.entity.Mensaje;
 import com.ufps.sgd.persistence.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,5 +42,15 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id) {
         this.usuarioService.deleteById(id);
+    }
+
+    @GetMapping("/{id}/mensajes/remitente")
+    public List<Mensaje> buscarMensajesPorRemitente(@PathVariable Long id) {
+        return this.usuarioService.findByRemitente(id);
+    }
+
+    @GetMapping("/{id}/mensajes/receptor")
+    public List<Mensaje> buscarMensajesPorReceptor(@PathVariable Long id) {
+        return this.usuarioService.findByReceptor(id);
     }
 }
