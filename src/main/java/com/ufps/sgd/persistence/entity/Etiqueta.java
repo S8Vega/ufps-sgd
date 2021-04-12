@@ -1,11 +1,16 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Etiqueta implements Serializable {
 
@@ -15,21 +20,8 @@ public class Etiqueta implements Serializable {
     private Long id;
     private String descripcion;
     @ManyToMany(mappedBy = "etiqueta")
-    @JsonIgnoreProperties(value = "etiqueta", allowSetters = true)
+    @JsonIgnoreProperties(value = {"numeroRadicado", "nombre", "archivo", "mensaje", "etiqueta"}, allowSetters = true)
     private Set<Documento> documento;
-
-    public Etiqueta() {
-    }
-
-    public Etiqueta(Long id, String descripcion, Set<Documento> documento) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.documento = documento;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
 
     @Override
     public String toString() {
@@ -41,29 +33,4 @@ public class Etiqueta implements Serializable {
         Etiqueta other = (Etiqueta) obj;
         return descripcion.equals(other.getDescripcion());
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Set<Documento> getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(Set<Documento> documento) {
-        this.documento = documento;
-    }
-
 }
