@@ -1,0 +1,106 @@
+package com.ufps.sgd.persistence.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
+
+@Entity
+public class Documento implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Long numeroRadicado;
+    private String nombre;
+    private String archivo;
+    @ManyToOne
+    @JoinColumn(name = "mensaje")
+    @JsonIgnoreProperties(value = "documento", allowSetters = true)
+    private Mensaje mensaje;
+    @ManyToMany
+    @JoinTable(name = "documento_etiqueta", joinColumns = @JoinColumn(name = "documento_id"), inverseJoinColumns = @JoinColumn(name = "etiqueta_id"))
+    @JsonIgnoreProperties(value = "documento", allowSetters = true)
+    private Set<Etiqueta> etiqueta;
+
+    public Documento() {
+    }
+
+    public Documento(Long id, Long numeroRadicado, String nombre, String archivo, Mensaje mensaje,
+                     Set<Etiqueta> etiqueta) {
+        this.id = id;
+        this.numeroRadicado = numeroRadicado;
+        this.nombre = nombre;
+        this.archivo = archivo;
+        this.mensaje = mensaje;
+        this.etiqueta = etiqueta;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    @Override
+    public String toString() {
+        return "Documento [id=" + id + ", numeroRadicado=" + numeroRadicado + ", nombre=" + nombre + ", archivo="
+                + archivo + ", mensaje=" + mensaje + ", etiqueta=" + etiqueta + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Documento other = (Documento) obj;
+        return numeroRadicado.equals(other.getNumeroRadicado()) && nombre.equals(other.getNombre())
+                && archivo.equals(other.getArchivo());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getNumeroRadicado() {
+        return numeroRadicado;
+    }
+
+    public void setNumeroRadicado(Long numeroRadicado) {
+        this.numeroRadicado = numeroRadicado;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(String archivo) {
+        this.archivo = archivo;
+    }
+
+    public Mensaje getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(Mensaje mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public Set<Etiqueta> getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(Set<Etiqueta> etiqueta) {
+        this.etiqueta = etiqueta;
+    }
+
+}
