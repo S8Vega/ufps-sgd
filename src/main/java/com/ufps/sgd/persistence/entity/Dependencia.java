@@ -1,7 +1,10 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +16,7 @@ import java.io.Serializable;
 @Entity
 public class Dependencia implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +25,6 @@ public class Dependencia implements Serializable {
     @JsonIgnoreProperties(value = {"dependencia", "usuario"}, allowSetters = true)
     private Administrativo administrativo;
     private Long numero;
-    private static final long serialVersionUID = 1L;
 
     @Override
     public String toString() {
