@@ -22,14 +22,13 @@ class DocumentoTest {
         Documento expected, actual;
         ArrayList<Documento> listaExpected = (ArrayList<Documento>) servicio.findAll();
         for (int i = 0; i < 10; i++) {
-            expected = new Documento(null, (long) i, "nombre: " + i, "archivo: " + i, null, null);
+            expected = new Documento(null, (long) i, "nombre: " + i, null, null);
             // test: save
             servicio.save(expected);
             actual = servicio.findById(expected.getId());
             assertEquals(expected, actual);
             expected.setNumeroRadicado((long) i + 1);
             expected.setNombre("nombre: " + (i + 1));
-            expected.setArchivo("archivo: " + (i + 1));
             // test: save
             servicio.save(expected);
             actual = servicio.findById(expected.getId());

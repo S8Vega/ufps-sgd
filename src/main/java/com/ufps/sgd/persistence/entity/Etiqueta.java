@@ -23,7 +23,7 @@ public class Etiqueta implements Serializable {
     private Long id;
     private String descripcion;
     @ManyToMany(mappedBy = "etiqueta")
-    @JsonIgnoreProperties(value = {"numeroRadicado", "nombre", "archivo", "mensaje", "etiqueta"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"numeroRadicado", "nombre", "mensaje", "etiqueta"}, allowSetters = true)
     private Set<Documento> documento;
 
     @Override

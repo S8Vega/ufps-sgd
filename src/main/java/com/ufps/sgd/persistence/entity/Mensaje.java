@@ -25,7 +25,7 @@ public class Mensaje implements Serializable {
     private String asunto;
     private String descripcion;
     @OneToMany(mappedBy = "mensaje", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties(value = {"numeroRadicado", "nombre", "archivo", "mensaje", "etiqueta"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"numeroRadicado", "nombre", "mensaje", "etiqueta"}, allowSetters = true)
     private Set<Documento> documento;
     @ManyToOne
     @JoinColumn(name = "remitente")

@@ -23,7 +23,6 @@ public class Documento implements Serializable {
     private Long id;
     private Long numeroRadicado;
     private String nombre;
-    private String archivo;
     @ManyToOne
     @JoinColumn(name = "mensaje")
     @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
@@ -35,14 +34,18 @@ public class Documento implements Serializable {
 
     @Override
     public String toString() {
-        return "Documento [id=" + id + ", numeroRadicado=" + numeroRadicado + ", nombre=" + nombre + ", archivo="
-                + archivo + ", mensaje=" + mensaje + ", etiqueta=" + etiqueta + "]";
+        return "Documento{" +
+                "id=" + id +
+                ", numeroRadicado=" + numeroRadicado +
+                ", nombre='" + nombre + '\'' +
+                ", mensaje=" + mensaje +
+                ", etiqueta=" + etiqueta +
+                '}';
     }
 
     @Override
     public boolean equals(Object obj) {
         Documento other = (Documento) obj;
-        return numeroRadicado.equals(other.getNumeroRadicado()) && nombre.equals(other.getNombre())
-                && archivo.equals(other.getArchivo());
+        return numeroRadicado.equals(other.getNumeroRadicado()) && nombre.equals(other.getNombre());
     }
 }
