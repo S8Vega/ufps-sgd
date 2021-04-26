@@ -28,7 +28,7 @@
 
 ## Author
 
-👤 **Sebasian VEga**
+👤 **Sebasian Vega**
 
 * Twitter: [@S8Vega](https://twitter.com/S8Vega)
 * Github: [@S8Vega](https://github.com/S8Vega)
@@ -36,7 +36,7 @@
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/S8Vega/ufps-sgd/issues). You can also take a look at the [contributing guide](https://github.com/S8Vega/ufps-sgd/blob/master/CONTRIBUTING.md).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/S8Vega/ufps-sgd/issues). 
 
 ## Show your support
 
