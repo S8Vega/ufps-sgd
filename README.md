@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1 align="center">Welcome to UFPS-SGD 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" />
@@ -49,3 +50,10 @@ This project is [MIT](https://github.com/S8Vega/ufps-sgd/blob/master/LICENSE) li
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+=======
+# UFPS - SGD
+
+---
+
+API de un Sistema de gestión documental para la UFPS.
+>>>>>>> master
