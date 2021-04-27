@@ -5,10 +5,12 @@ import com.ufps.sgd.domain.service.UsuarioService;
 import com.ufps.sgd.persistence.entity.Mensaje;
 import com.ufps.sgd.persistence.entity.Usuario;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -93,4 +95,20 @@ class UsuarioTest {
         assertEquals(listaMensajeExpected, listaMensajeActual);
         assertEquals(listaUsuarioExpected, listaUsuarioActual);
     }
+
+    @Test
+    @Timeout(value = 35, unit = TimeUnit.SECONDS)
+    void stress() {
+        Usuario expected;
+        ArrayList<Usuario> listaExpected = (ArrayList<Usuario>) servicio.findAll();
+        for (int i = 0; i < 1000; i++) {
+            expected = new Usuario(null, "nombre: " + i, "apellido: " + i, "alias: " + i, "contrasena: " + i, null,
+                    null, null, null);
+            servicio.save(expected);
+            servicio.deleteById(expected.getId());
+        }
+        ArrayList<Usuario> listaActual = (ArrayList<Usuario>) servicio.findAll();
+        assertEquals(listaExpected, listaActual);
+    }
+
 }

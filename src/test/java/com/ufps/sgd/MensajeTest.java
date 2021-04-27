@@ -4,10 +4,12 @@ import com.ufps.sgd.domain.service.MensajeService;
 import com.ufps.sgd.domain.service.UsuarioService;
 import com.ufps.sgd.persistence.entity.Mensaje;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -41,6 +43,22 @@ class MensajeTest {
             servicio.deleteById(expected.getId());
             actual = servicio.findById(actual.getId());
             assertNull(actual);
+        }
+        ArrayList<Mensaje> listaActual = (ArrayList<Mensaje>) servicio.findAll();
+        assertEquals(listaExpected, listaActual);
+    }
+
+
+    @Test
+    @Timeout(value = 35, unit = TimeUnit.SECONDS)
+    void stress() {
+        Mensaje expected;
+        ArrayList<Mensaje> listaExpected = (ArrayList<Mensaje>) servicio.findAll();
+        for (int i = 0; i < 1000; i++) {
+            expected = new Mensaje(null, "asunto: " + i, "descripcion: " + i, null, usuarioServicio.findById((long) i),
+                    usuarioServicio.findById((long) (i % 15 + 1)), null, "enviado", null, null);
+            servicio.save(expected);
+            servicio.deleteById(expected.getId());
         }
         ArrayList<Mensaje> listaActual = (ArrayList<Mensaje>) servicio.findAll();
         assertEquals(listaExpected, listaActual);
