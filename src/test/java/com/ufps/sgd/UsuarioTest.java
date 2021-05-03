@@ -28,8 +28,11 @@ class UsuarioTest {
         Usuario expected, actual;
         ArrayList<Usuario> listaExpected = (ArrayList<Usuario>) servicio.findAll();
         for (int i = 0; i < 10; i++) {
-            expected = new Usuario(null, "nombre: " + i, "apellido: " + i, "alias: " + i, "contrasena: " + i, null,
-                    null, null, null);
+            expected = new Usuario();
+            expected.setNombre("nombre: " + i);
+            expected.setApellido("apellido: " + i);
+            expected.setAlias("alias: " + i);
+            expected.setContrasena("contrasena: " + i);
             // test: save
             servicio.save(expected);
             actual = servicio.findById(expected.getId());
@@ -102,8 +105,11 @@ class UsuarioTest {
         Usuario expected;
         ArrayList<Usuario> listaExpected = (ArrayList<Usuario>) servicio.findAll();
         for (int i = 0; i < 1000; i++) {
-            expected = new Usuario(null, "nombre: " + i, "apellido: " + i, "alias: " + i, "contrasena: " + i, null,
-                    null, null, null);
+            expected = new Usuario();
+            expected.setNombre("nombre: " + i);
+            expected.setApellido("apellido: " + i);
+            expected.setAlias("alias: " + i);
+            expected.setContrasena("contrasena: " + i);
             servicio.save(expected);
             servicio.deleteById(expected.getId());
         }

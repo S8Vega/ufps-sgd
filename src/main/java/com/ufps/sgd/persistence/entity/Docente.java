@@ -1,36 +1,23 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import java.io.Serializable;
 
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
-public class Docente implements Serializable {
-
+@PrimaryKeyJoinColumn(name = "usuario_id")
+public class Docente extends Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @ManyToOne
     @JoinColumn(name = "departamento")
     @JsonIgnoreProperties(value = {"nombre", "docente"}, allowSetters = true)
     private Departamento departamento;
-    @OneToOne
-    @JoinColumn(name = "usuario", unique = true)
-    @JsonIgnoreProperties(value = {"nombre", "apellido", "alias", "contrasena", "docente", "administrativo", "mensajeEnviado", "mensajeRecibido"}, allowSetters = true)
-    private Usuario usuario;
-
-    @Override
-    public String toString() {
-        return "Docente [id=" + id + ", departamento=" + departamento + ", usuario=" + usuario + "]";
-    }
 }

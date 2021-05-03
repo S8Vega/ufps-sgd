@@ -1,54 +1,46 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NonNull
     private String nombre;
+    @NonNull
     private String apellido;
+    @NonNull
+    @Column(unique = true)
     private String alias;
+    @NonNull
     private String contrasena;
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties(value = {"departamento", "usuario"}, allowSetters = true)
-    private Docente docente;
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties(value = {"dependencia", "usuario"}, allowSetters = true)
-    private Administrativo administrativo;
+    @NonNull
+    private Boolean enabled;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "rol_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "rol_id"})})
+    private Set<Rol> rol;
     @OneToMany(mappedBy = "receptor", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Set<Mensaje> mensajeEnviado;
     @OneToMany(mappedBy = "remitente", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Set<Mensaje> mensajeRecibido;
-
-    @Override
-    public String toString() {
-        return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", alias=" + alias
-                + ", contrasena=" + contrasena + ", docente=" + docente + ", administrativo=" + administrativo
-                + ", mensajeEnviado=" + mensajeEnviado + ", mensajeRecibido=" + mensajeRecibido + "]";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        Usuario other = (Usuario) obj;
-        return nombre.equals(other.getNombre()) && apellido.equals(other.getApellido())
-                && alias.equals(other.getAlias()) && contrasena.equals(other.getContrasena());
-    }
 }
