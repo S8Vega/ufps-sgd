@@ -50,7 +50,7 @@ class MensajeTest {
 
 
     @Test
-    @Timeout(value = 35, unit = TimeUnit.SECONDS)
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     void stress() {
         Mensaje expected;
         ArrayList<Mensaje> listaExpected = (ArrayList<Mensaje>) servicio.findAll();

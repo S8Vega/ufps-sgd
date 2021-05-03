@@ -100,7 +100,7 @@ class UsuarioTest {
     }
 
     @Test
-    @Timeout(value = 35, unit = TimeUnit.SECONDS)
+    @Timeout(value = 1, unit = TimeUnit.MINUTES)
     void stress() {
         Usuario expected;
         ArrayList<Usuario> listaExpected = (ArrayList<Usuario>) servicio.findAll();

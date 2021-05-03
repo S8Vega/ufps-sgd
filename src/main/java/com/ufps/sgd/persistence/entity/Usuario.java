@@ -34,6 +34,7 @@ public class Usuario implements Serializable {
     @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "rol_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "rol_id"})})
+    @EqualsAndHashCode.Exclude
     private Set<Rol> rol;
     @OneToMany(mappedBy = "receptor", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
