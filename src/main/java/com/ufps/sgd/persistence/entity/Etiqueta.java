@@ -1,19 +1,17 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
 public class Etiqueta implements Serializable {
 
@@ -21,19 +19,10 @@ public class Etiqueta implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NonNull
     private String descripcion;
-    @ManyToMany(mappedBy = "etiqueta")
+    @ManyToMany(mappedBy = "etiqueta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"numeroRadicado", "nombre", "mensaje", "etiqueta"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Set<Documento> documento;
-
-    @Override
-    public String toString() {
-        return "Etiqueta [id=" + id + ", descripcion=" + descripcion + ", documento=" + documento + "]";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        Etiqueta other = (Etiqueta) obj;
-        return descripcion.equals(other.getDescripcion());
-    }
 }

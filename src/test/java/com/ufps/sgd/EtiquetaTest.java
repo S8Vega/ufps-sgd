@@ -22,7 +22,8 @@ class EtiquetaTest {
         Etiqueta expected, actual;
         ArrayList<Etiqueta> listaExpected = (ArrayList<Etiqueta>) servicio.findAll();
         for (int i = 0; i < 10; i++) {
-            expected = new Etiqueta(null, "descripcion: " + i, null);
+            expected = new Etiqueta();
+            expected.setDescripcion("descripcion: " + i);
             // test: save
             servicio.save(expected);
             actual = servicio.findById(expected.getId());

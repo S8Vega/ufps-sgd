@@ -23,6 +23,8 @@ public class UsuarioService implements UserDetailsService {
     private UsuarioCrudRepository usuarioCrudRepository;
     @Autowired
     private MensajeCrudRepository mensajeCrudRepository;
+    @Autowired
+    private RolService rolService;
 
     @Transactional(readOnly = true)
     public Usuario findById(Long id) {
@@ -43,6 +45,12 @@ public class UsuarioService implements UserDetailsService {
     @Transactional
     public void deleteById(Long id) {
         usuarioCrudRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void agregarRol(Long idUsuario, Long idRol) {
+        Usuario usuario = findById(idUsuario);
+        usuario.agregarRol(rolService.findById(idRol));
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED)

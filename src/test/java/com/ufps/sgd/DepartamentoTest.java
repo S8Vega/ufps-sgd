@@ -22,7 +22,8 @@ class DepartamentoTest {
         Departamento expected, actual;
         ArrayList<Departamento> listaExpected = (ArrayList<Departamento>) servicio.findAll();
         for (int i = 0; i < 10; i++) {
-            expected = new Departamento(null, "nombre: " + i, null);
+            expected = new Departamento();
+            expected.setNombre("nombre: " + i);
             // test: save
             servicio.save(expected);
             actual = servicio.findById(expected.getId());

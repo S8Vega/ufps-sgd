@@ -1,18 +1,16 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
 public class Dependencia implements Serializable {
 
@@ -20,21 +18,12 @@ public class Dependencia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NonNull
     private String nombre;
-    @OneToOne(mappedBy = "dependencia", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties(value = {"dependencia", "usuario"}, allowSetters = true)
+    @OneToOne(mappedBy = "dependencia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = {"dependencia", "nombre", "apellido", "alias", "contrasena", "rol", "mensajeEnviado", "mensajeRecibido"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Administrativo administrativo;
+    @NonNull
     private Long numero;
-
-    @Override
-    public String toString() {
-        return "Dependencia [id=" + id + ", nombre=" + nombre + ", administrativo=" + administrativo + ", numero="
-                + numero + "]";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        Dependencia other = (Dependencia) obj;
-        return nombre.equals(other.getNombre()) && numero.equals(other.getNumero());
-    }
 }

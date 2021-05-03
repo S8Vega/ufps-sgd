@@ -69,6 +69,11 @@ public class UsuarioController {
         return this.usuarioService.findByReceptor(id);
     }
 
+    @PostMapping("/{idUsuario}/rol/{idRol}")
+    public void agregarRol(@PathVariable Long idUsuario, @PathVariable Long idRol) {
+        this.usuarioService.agregarRol(idUsuario, idRol);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> createToken(@RequestBody AuthenticationRequest request) {
         try {

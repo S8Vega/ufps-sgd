@@ -22,7 +22,9 @@ class DocumentoTest {
         Documento expected, actual;
         ArrayList<Documento> listaExpected = (ArrayList<Documento>) servicio.findAll();
         for (int i = 0; i < 10; i++) {
-            expected = new Documento(null, (long) i, "nombre: " + i, null, null);
+            expected = new Documento();
+            expected.setNumeroRadicado((long) i);
+            expected.setNombre("nombre: " + i);
             // test: save
             servicio.save(expected);
             actual = servicio.findById(expected.getId());

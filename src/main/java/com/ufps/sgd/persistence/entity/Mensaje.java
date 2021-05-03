@@ -1,20 +1,18 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
 public class Mensaje implements Serializable {
 
@@ -22,40 +20,34 @@ public class Mensaje implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NonNull
     private String asunto;
+    @NonNull
     private String descripcion;
-    @OneToMany(mappedBy = "mensaje", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "mensaje", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"numeroRadicado", "nombre", "mensaje", "etiqueta"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Set<Documento> documento;
     @ManyToOne
     @JoinColumn(name = "remitente")
-    @JsonIgnoreProperties(value = {"nombre", "apellido", "alias", "contrasena", "docente", "administrativo", "mensajeEnviado", "mensajeRecibido"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"nombre", "apellido", "alias", "contrasena", "rol", "mensajeEnviado", "mensajeRecibido"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Usuario remitente;
     @ManyToOne
     @JoinColumn(name = "receptor")
-    @JsonIgnoreProperties(value = {"nombre", "apellido", "alias", "contrasena", "docente", "administrativo", "mensajeEnviado", "mensajeRecibido"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"nombre", "apellido", "alias", "contrasena", "rol", "mensajeEnviado", "mensajeRecibido"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Usuario receptor;
+    @NonNull
     private Date fechaEnvio;
+    @NonNull
     private String estado;
-    @OneToOne(mappedBy = "mensajeSiguiente", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "mensajeSiguiente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"mensajeAnterior", "mensajeSiguiente"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Respuesta respuestaAnterior;
-    @OneToOne(mappedBy = "mensajeAnterior", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "mensajeAnterior", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"mensajeAnterior", "mensajeSiguiente"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Respuesta respuestaSiguiente;
-
-    @Override
-    public String toString() {
-        return "Mensaje [id=" + id + ", asunto=" + asunto + ", descripcion=" + descripcion + ", documento=" + documento
-                + ", remitente=" + remitente + ", receptor=" + receptor + ", fechaEnvio=" + fechaEnvio + ", estado="
-                + estado + ", respuestaAnterior=" + respuestaAnterior + ", respuestaSiguiente=" + respuestaSiguiente
-                + "]";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        Mensaje other = (Mensaje) obj;
-        return asunto.equals(other.getAsunto()) && descripcion.equals(other.getDescripcion())
-                && estado.equals(other.getEstado());
-    }
 }

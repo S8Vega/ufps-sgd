@@ -2,6 +2,7 @@ package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -19,5 +20,6 @@ public class Administrativo extends Usuario implements Serializable {
     @OneToOne
     @JoinColumn(name = "dependencia", unique = true)
     @JsonIgnoreProperties(value = {"nombre", "administrativo", "numero"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Dependencia dependencia;
 }

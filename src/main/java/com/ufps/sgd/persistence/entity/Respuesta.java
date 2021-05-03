@@ -1,18 +1,15 @@
 package com.ufps.sgd.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
 public class Respuesta implements Serializable {
 
@@ -23,15 +20,11 @@ public class Respuesta implements Serializable {
     @OneToOne
     @JoinColumn(name = "mensajeAnterior", unique = true)
     @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Mensaje mensajeAnterior;
     @OneToOne
     @JoinColumn(name = "mensajeSiguiente", unique = true)
     @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
+    @EqualsAndHashCode.Exclude
     private Mensaje mensajeSiguiente;
-
-    @Override
-    public String toString() {
-        return "Respuesta [id=" + id + ", mensajeAnterior=" + mensajeAnterior + ", mensajeSiguiente=" + mensajeSiguiente
-                + "]";
-    }
 }

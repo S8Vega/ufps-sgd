@@ -22,7 +22,9 @@ class DependenciaTest {
         Dependencia expected, actual;
         ArrayList<Dependencia> listaExpected = (ArrayList<Dependencia>) servicio.findAll();
         for (int i = 0; i < 10; i++) {
-            expected = new Dependencia(null, "nombre: " + i, null, (long) i);
+            expected = new Dependencia();
+            expected.setNombre("nombre: " + i);
+            expected.setNumero((long) i);
             // test: save
             servicio.save(expected);
             actual = servicio.findById(expected.getId());

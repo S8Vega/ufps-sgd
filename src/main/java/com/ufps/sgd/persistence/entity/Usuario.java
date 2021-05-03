@@ -36,12 +36,16 @@ public class Usuario implements Serializable {
             uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "rol_id"})})
     @EqualsAndHashCode.Exclude
     private Set<Rol> rol;
-    @OneToMany(mappedBy = "receptor", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "receptor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
     @EqualsAndHashCode.Exclude
     private Set<Mensaje> mensajeEnviado;
-    @OneToMany(mappedBy = "remitente", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "remitente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"asunto", "descripcion", "documento", "remitente", "receptor", "fechaEnvio", "estado", "respuestaAnterior", "respuestaSiguiente"}, allowSetters = true)
     @EqualsAndHashCode.Exclude
     private Set<Mensaje> mensajeRecibido;
+
+    public void agregarRol(Rol r) {
+        this.getRol().add(r);
+    }
 }
