@@ -16,7 +16,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/usuario")
@@ -42,9 +44,17 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public void crear(@RequestBody Usuario usuario) {
-        this.usuarioService.save(usuario);
+    public ResponseEntity<?> crear(@RequestBody Usuario usuario) {
+        Map<String, Object> response = new HashMap<>();
+        Usuario u = this.usuarioService.findByAlias(usuario.getAlias());
+        if (u == null) {
+            this.usuarioService.save(usuario);
+            response.put("mensaje", "usuario creado correctamente");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+        } else {
+            response.put("mensaje", "el alias del usuario: " + usuario.getAlias() + " no esta disponible");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CONFLICT);
+        }
     }
 
     @PutMapping("/{id}")
@@ -55,6 +65,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void eliminar(@PathVariable Long id) {
         this.usuarioService.deleteById(id);
     }

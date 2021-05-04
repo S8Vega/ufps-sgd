@@ -5,6 +5,7 @@ import com.ufps.sgd.persistence.crud.UsuarioCrudRepository;
 import com.ufps.sgd.persistence.entity.Mensaje;
 import com.ufps.sgd.persistence.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -53,6 +54,12 @@ public class UsuarioService implements UserDetailsService {
         usuario.agregarRol(rolService.findById(idRol));
     }
 
+    @Transactional(readOnly = true)
+    public Usuario findByAlias(String alias) {
+        return this.usuarioCrudRepository.findByAlias(alias);
+    }
+
+
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
     public List<Mensaje> findByRemitente(Long id) {
         return this.mensajeCrudRepository.findByRemitente(findById(id));
@@ -66,6 +73,6 @@ public class UsuarioService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String alias) throws UsernameNotFoundException {
         Usuario usuario = usuarioCrudRepository.findByAlias(alias);
-        return new org.springframework.security.core.userdetails.User(usuario.getAlias(), "{noop}" + usuario.getContrasena(), new ArrayList<>());
+        return new User(usuario.getAlias(), "{noop}" + usuario.getContrasena(), new ArrayList<>());
     }
 }
