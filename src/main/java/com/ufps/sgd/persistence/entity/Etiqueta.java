@@ -21,7 +21,7 @@ public class Etiqueta implements Serializable {
     private Long id;
     @NonNull
     private String descripcion;
-    @ManyToMany(mappedBy = "etiqueta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "etiqueta", fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"numeroRadicado", "nombre", "mensaje", "etiqueta"}, allowSetters = true)
     @EqualsAndHashCode.Exclude
     private Set<Documento> documento;

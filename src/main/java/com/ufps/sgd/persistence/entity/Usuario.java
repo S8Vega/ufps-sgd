@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
     private String contrasena;
     @NonNull
     private Boolean enabled;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "rol_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "rol_id"})})
@@ -46,6 +46,6 @@ public class Usuario implements Serializable {
     private Set<Mensaje> mensajeRecibido;
 
     public void agregarRol(Rol r) {
-        this.getRol().add(r);
+        this.rol.add(r);
     }
 }

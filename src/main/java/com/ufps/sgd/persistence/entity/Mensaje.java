@@ -42,11 +42,11 @@ public class Mensaje implements Serializable {
     private Date fechaEnvio;
     @NonNull
     private String estado;
-    @OneToOne(mappedBy = "mensajeSiguiente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "mensajeSiguiente", fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"mensajeAnterior", "mensajeSiguiente"}, allowSetters = true)
     @EqualsAndHashCode.Exclude
     private Respuesta respuestaAnterior;
-    @OneToOne(mappedBy = "mensajeAnterior", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "mensajeAnterior", fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"mensajeAnterior", "mensajeSiguiente"}, allowSetters = true)
     @EqualsAndHashCode.Exclude
     private Respuesta respuestaSiguiente;
